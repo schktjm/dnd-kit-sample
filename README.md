@@ -2,6 +2,10 @@
 
 このプロジェクトは、[@dnd-kit](https://dndkit.com/)ライブラリを使用したドラッグ&ドロップ機能の実装サンプルです。基本的な実装とアクセシビリティに配慮した実装の2つのパターンを比較できます。
 
+## デモ
+
+🔗 **[https://dnd-kit-sample.vercel.app/](https://dnd-kit-sample.vercel.app/)**
+
 ## 特徴
 
 ### Basic版
