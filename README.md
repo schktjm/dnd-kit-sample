@@ -1,73 +1,81 @@
-# React + TypeScript + Vite
+# dnd-kit サンプル実装
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+このプロジェクトは、[@dnd-kit](https://dndkit.com/)ライブラリを使用したドラッグ&ドロップ機能の実装サンプルです。基本的な実装とアクセシビリティに配慮した実装の2つのパターンを比較できます。
 
-Currently, two official plugins are available:
+## 特徴
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Basic版
+- シンプルなドラッグ&ドロップ実装
+- マウス操作とキーボード操作に対応
+- リストアイテムの並び替えが可能
 
-## React Compiler
+### Accessible版
+- アクセシビリティに特化した実装
+- スクリーンリーダー対応（日本語のアナウンス機能）
+- 上下移動ボタンによるキーボード操作
+- aria-labelによる適切なラベル付け
+- ドラッグ操作の各段階での音声フィードバック
+  - ドラッグ開始時
+  - ドラッグ中の位置変更時
+  - ドロップ時
+  - キャンセル時
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 技術スタック
 
-## Expanding the ESLint configuration
+- **React** 19.2.0
+- **TypeScript** 5.9.3
+- **Vite** - ビルドツール
+- **@dnd-kit** - ドラッグ&ドロップライブラリ
+  - @dnd-kit/core
+  - @dnd-kit/sortable
+  - @dnd-kit/utilities
+- **Tailwind CSS** - スタイリング
+- **Font Awesome** - アイコン
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## セットアップ
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+```bash
+# 依存パッケージのインストール
+pnpm install
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# 開発サーバーの起動
+pnpm dev
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# ビルド
+pnpm build
+
+# プレビュー
+pnpm preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## プロジェクト構成
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+├── components/
+│   ├── TabContainer.tsx          # タブ切り替えコンテナ
+│   ├── BasicDndList.tsx          # Basic版のDndContextラッパー
+│   ├── AccessibleDndList.tsx     # Accessible版のDndContextラッパー
+│   ├── BasicSortableList.tsx     # Basic版のリストコンポーネント
+│   ├── AccessibleSortableList.tsx # Accessible版のリストコンポーネント
+│   ├── BasicSortableItem.tsx     # Basic版のアイテムコンポーネント
+│   └── AccessibleSortableItem.tsx # Accessible版のアイテムコンポーネント
+├── types/
+│   └── item.ts                   # DndItem型定義
+├── App.tsx                       # アプリケーションルート
+└── main.tsx                      # エントリーポイント
+```
+
+## 実装のポイント
+
+### センサー設定
+両実装とも以下のセンサーを使用：
+- **MouseSensor**: マウス操作（5pxの移動で有効化）
+- **KeyboardSensor**: キーボード操作（矢印キーでの移動）
+
+### アクセシビリティ機能（Accessible版）
+- スクリーンリーダー用の操作説明文
+- ドラッグ操作の状態変化をリアルタイムでアナウンス
+- 上下移動ボタンによる代替操作方法
+- 最初/最後のアイテムでは対応するボタンを無効化
+- ドラッグハンドルをbutton要素として実装し、フォーカス管理を適切に実装
