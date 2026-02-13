@@ -85,17 +85,17 @@ export function AccessibleSortableItem({
       <div className="flex-1 text-base text-gray-900 dark:text-white font-bold">
         {item.content}
       </div>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-2">
         <button
           type="button"
           onClick={() => onMoveUp(item.id)}
           disabled={isFirst}
-          className="flex items-center justify-center w-8 h-8 rounded hover:bg-green-100 dark:hover:bg-green-800 disabled:opacity-30 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+          className="flex items-center justify-center w-10 h-10 rounded-md bg-green-50 dark:bg-green-900/20 border-2 border-green-300 dark:border-green-600 shadow-sm hover:bg-green-100 hover:border-green-400 dark:hover:bg-green-900/40 dark:hover:border-green-500 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-green-50 dark:disabled:hover:bg-green-900/20 disabled:hover:border-green-300 dark:disabled:hover:border-green-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 transition-colors"
           aria-label={`${item.content}を上に移動`}
         >
           <FontAwesomeIcon
             icon={faChevronUp}
-            className="text-gray-600 dark:text-gray-300"
+            className="text-gray-700 dark:text-gray-200"
             aria-hidden="true"
           />
         </button>
@@ -103,12 +103,12 @@ export function AccessibleSortableItem({
           type="button"
           onClick={() => onMoveDown(item.id)}
           disabled={isLast}
-          className="flex items-center justify-center w-8 h-8 rounded hover:bg-green-100 dark:hover:bg-green-800 disabled:opacity-30 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+          className="flex items-center justify-center w-10 h-10 rounded-md bg-green-50 dark:bg-green-900/20 border-2 border-green-300 dark:border-green-600 shadow-sm hover:bg-green-100 hover:border-green-400 dark:hover:bg-green-900/40 dark:hover:border-green-500 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-green-50 dark:disabled:hover:bg-green-900/20 disabled:hover:border-green-300 dark:disabled:hover:border-green-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 transition-colors"
           aria-label={`${item.content}を下に移動`}
         >
           <FontAwesomeIcon
             icon={faChevronDown}
-            className="text-gray-600 dark:text-gray-300"
+            className="text-gray-700 dark:text-gray-200"
             aria-hidden="true"
           />
         </button>
